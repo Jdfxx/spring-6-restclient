@@ -23,7 +23,7 @@ class BeerClientImplTest {
     void testDeleteBeer() {
         BeerDTO newDto = BeerDTO.builder()
                 .price(new BigDecimal("10.99"))
-                .beerName("Mango Bobs 2")
+                .beerName("Beer to be deleted")
                 .beerStyle("IPA")
                 .quantityOnHand(500)
                 .upc("123245")

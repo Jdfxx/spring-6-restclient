@@ -4,7 +4,10 @@ package guru.springframework.spring6restclient.client;
 import guru.springframework.spring6restclient.model.BeerDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -65,6 +68,14 @@ public class BeerClientImpl implements BeerClient {
         return restClient.get()
                 .uri(uriBuilder -> uriBuilder.path(GET_BEER_BY_ID_PATH).build(beerId))
                 .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                    throw new HttpClientErrorException(response.getStatusCode(),
+                            "Client error when fetching beers: " + response.getStatusText());
+                })
+                .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
+                    throw new HttpServerErrorException(response.getStatusCode(),
+                            "Server error when fetching beers: " + response.getStatusText());
+                })
                 .body(BeerDTO.class)
         ;
     }
@@ -103,6 +114,18 @@ public class BeerClientImpl implements BeerClient {
 
     @Override
     public void deleteBeer(String beerId) {
-
+        RestClient restClient = restClientBuilder.build();
+        restClient.delete()
+                .uri(uriBuilder -> uriBuilder.path(GET_BEER_BY_ID_PATH).build(beerId))
+                .retrieve()
+                .onStatus(HttpStatusCode::is4xxClientError, (request, response) -> {
+                    throw new HttpClientErrorException(response.getStatusCode(),
+                            "Client error when deleting beer: " + response.getStatusText());
+                })
+                .onStatus(HttpStatusCode::is5xxServerError, (request, response) -> {
+                    throw new HttpServerErrorException(response.getStatusCode(),
+                            "Server error when deleting beer: " + response.getStatusText());
+                })
+                .toBodilessEntity();;
     }
 }

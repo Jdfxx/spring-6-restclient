@@ -7,7 +7,6 @@ import guru.springframework.spring6restclient.client.BeerClientImpl;
 import guru.springframework.spring6restclient.config.OAuthClientInterceptor;
 import guru.springframework.spring6restclient.config.RestTemplateBuilderConfig;
 import guru.springframework.spring6restclient.model.BeerDTO;
-import guru.springframework.spring6restclient.model.BeerDTOPageImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -39,7 +38,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.math.BigDecimal;
 import java.net.URI;
 import java.time.Instant;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
