@@ -3,14 +3,13 @@ package guru.springframework.spring6restclient;
 
 import guru.springframework.spring6restclient.client.BeerClientImpl;
 import guru.springframework.spring6restclient.model.BeerDTO;
-import guru.springframework.spring6restclient.model.BeerStyle;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -25,7 +24,7 @@ class BeerClientImplTest {
         BeerDTO newDto = BeerDTO.builder()
                 .price(new BigDecimal("10.99"))
                 .beerName("Mango Bobs 2")
-                .beerStyle(BeerStyle.IPA)
+                .beerStyle("IPA")
                 .quantityOnHand(500)
                 .upc("123245")
                 .build();
@@ -46,7 +45,7 @@ class BeerClientImplTest {
         BeerDTO newDto = BeerDTO.builder()
                 .price(new BigDecimal("10.99"))
                 .beerName("Mango Bobs 2")
-                .beerStyle(BeerStyle.IPA)
+                .beerStyle("IPA")
                 .quantityOnHand(500)
                 .upc("123245")
                 .build();
@@ -66,7 +65,7 @@ class BeerClientImplTest {
         BeerDTO newDto = BeerDTO.builder()
                 .price(new BigDecimal("10.99"))
                 .beerName("Mango Bobs")
-                .beerStyle(BeerStyle.IPA)
+                .beerStyle("IPA")
                 .quantityOnHand(500)
                 .upc("123245")
                 .build();
@@ -78,9 +77,9 @@ class BeerClientImplTest {
     @Test
     void getBeerById() {
 
-        Page<BeerDTO> beerDTOS = beerClient.listBeers();
+        List<BeerDTO> beerDTOS = beerClient.listBeers();
 
-        BeerDTO dto = beerDTOS.getContent().getFirst();
+        BeerDTO dto = beerDTOS.getFirst();
 
         BeerDTO byId = beerClient.getBeerById(dto.getId());
 

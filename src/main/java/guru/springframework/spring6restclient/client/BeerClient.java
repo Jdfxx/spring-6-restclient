@@ -1,25 +1,23 @@
 package guru.springframework.spring6restclient.client;
 
 import guru.springframework.spring6restclient.model.BeerDTO;
-import guru.springframework.spring6restclient.model.BeerStyle;
-import org.springframework.data.domain.Page;
 
-import java.util.UUID;
+import java.util.List;
 
 /**
  * Created by jt, Spring Framework Guru.
  */
 public interface BeerClient {
-    Page<BeerDTO> listBeers();
+    List<BeerDTO> listBeers();
 
-    Page<BeerDTO> listBeers(String beerName, BeerStyle beerStyle, Boolean showInventory, Integer pageNumber,
+    List<BeerDTO> listBeers(String beerName, String beerStyle, Boolean showInventory, Integer pageNumber,
                             Integer pageSize);
 
-    BeerDTO getBeerById(UUID beerId);
+    BeerDTO getBeerById(String beerId);
 
     BeerDTO createBeer(BeerDTO newDto);
 
     BeerDTO updateBeer(BeerDTO beerDto);
 
-    void deleteBeer(UUID beerId);
+    void deleteBeer(String beerId);
 }
