@@ -159,7 +159,6 @@ public class BeerClientMockTest {
         assertThrows(HttpClientErrorException.class, () -> {
             beerClient.deleteBeer(dto.getId());
         });
-
         server.verify();
     }
 
@@ -172,7 +171,6 @@ public class BeerClientMockTest {
                 .andRespond(withNoContent());
 
         beerClient.deleteBeer(dto.getId());
-
         server.verify();
     }
 
